@@ -1,0 +1,31 @@
+﻿@page
+@model WebApplication2.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ErrorViewModel) {
+        <tr>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.RequestId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.RequestId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.RequestId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
