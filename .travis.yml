@@ -30,5 +30,5 @@ branches:
     - master
 script:  
   - ulimit -n 1024
-  - dotnet msbuild /m test.proj
+  - dotnet msbuild /m test.build
 
