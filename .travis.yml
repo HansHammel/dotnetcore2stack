@@ -23,13 +23,13 @@ install:
   - nvm install 6.11.5
   - nvm use 6.11.5
   - npm install yarn bower webpack coffee-script cordova grunt-cli gulp-cli typescript jspm less node-sass -g
-  - dotnet restore
-  - dotnet build -f netcoreapp2.0
 branches:  
   only:
     - master
 script:  
   - ulimit -n 1024
+  - dotnet restore
+  - dotnet build -f netcoreapp2.0
   - xbuild /m test.build
 #  - dotnet msbuild /m test.build
 
