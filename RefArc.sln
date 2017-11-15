@@ -36,6 +36,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vue", "UI\Vue\Vue.csproj", "{5E30C21B-DDE1-4AF8-80E6-1E71A4F848C6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Drafts", "Drafts", "{F0FEB6A7-4762-419F-B28B-D9C5C1C8F6F8}"
+	ProjectSection(SolutionItems) = preProject
+		Drafts\FileUpload2\wwwroot\test.pdf = Drafts\FileUpload2\wwwroot\test.pdf
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IAM", "IAM", "{B9ABD377-D411-4885-B6E6-A3AEFBEB55C8}"
 EndProject

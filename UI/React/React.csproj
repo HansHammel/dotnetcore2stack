@@ -45,4 +45,8 @@
     </ItemGroup>
   </Target>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="CD $(MSBuildProjectDirectory)&#xD;&#xA;npm install&#xD;&#xA;webpack" />
+  </Target>
+
 </Project>

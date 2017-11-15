@@ -22,7 +22,7 @@ install:
   - ulimit -n 1024
   - nvm install 6.11.5
   - nvm use 6.11.5
-  - npm install yarn bower webpack coffee-script cordova grunt-cli gulp-cli typescript tsd jspm less node-sass -g
+  - npm install yarn bower webpack coffee-script cordova grunt-cli gulp-cli typescript jspm less node-sass -g
   - dotnet restore
 branches:  
   only:
