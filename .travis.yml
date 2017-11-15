@@ -1,9 +1,15 @@
 language: csharp
-mono: none
-dotnet: 2.0.0
-dist: trusty
-env:  
-  - CLI_VERSION=latest
+matrix:
+  include:
+  - os: linux
+    dist: trusty # Ubuntu 14.04
+    sudo: required
+    dotnet: 2.0.0
+    mono: none
+  - os: osx
+    osx_image: xcode8.3 # macOS 10.12
+    dotnet: 2.0.0
+    mono: none
 addons:
   apt:
     sources:
@@ -13,15 +19,16 @@ addons:
     - dotnet-hostfxr-1.0.1
     - dotnet-sharedframework-microsoft.netcore.app-1.0.5
 install:
-  - dotnet restore
+  - ulimit -n 1024
   - nvm install 6.11.5
   - nvm use 6.11.5
-  - npm install
+  - npm install yarn bower webpack coffee-script cordova grunt-cli gulp-cli typescript tsd jspm less node-sass -g
+  - dotnet restore
 branches:  
   only:
     - master
 script:  
-  - dotnet restore
+  - ulimit -n 1024
   - dotnet build
   - dotnet test
 
