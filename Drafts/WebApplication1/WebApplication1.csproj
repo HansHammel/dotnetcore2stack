@@ -8,4 +8,7 @@
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="bower install&#xD;&#xA;gulp&#xD;&#xA;" />
+  </Target>
 </Project>
