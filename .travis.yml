@@ -12,10 +12,6 @@ addons:
     packages:
     - dotnet-hostfxr-1.0.1
     - dotnet-sharedframework-microsoft.netcore.app-1.0.5
-os:  
-  - linux
-  - osx
-osx_image: xcode7.1  
 install:
   - dotnet restore
   - nvm install 6.11.5
