@@ -79,12 +79,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Pluralsight.Crypto\Pluralsight.Crypto.csproj">
-      <Project>{FC8E9D5F-3378-4C63-9B6C-5D567F8603B2}</Project>
-      <Name>Pluralsight.Crypto</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="eye-icon.ico" />
     <Content Include="ps.ico" />
   </ItemGroup>

@@ -51,7 +51,7 @@
   </Target>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="npm set progress=false&#xD;&#xA;npm install&#xD;&#xA;node ./node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod&#xD;&#xA;node ./node_modules/webpack/bin/webpack.js --config webpack.config.js --env.prod&#xD;&#xA;" />
+    <Exec Command="npm set progress=false&#xD;&#xA;npm install --loglevel silent --skip-installed&#xD;&#xA;node ./node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod&#xD;&#xA;node ./node_modules/webpack/bin/webpack.js --config webpack.config.js --env.prod&#xD;&#xA;" />
   </Target>
 
 </Project>
