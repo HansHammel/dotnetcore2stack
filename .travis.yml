@@ -29,7 +29,9 @@ branches:
 script:  
   - ulimit -n 1024
   - dotnet restore
-  - dotnet build -f netcoreapp2.0
-#  - xbuild /m test.build
+  - dotnet build
+# - dotnet build -f netcoreapp2.0
+# - xbuild /m test.build
   - dotnet msbuild /m test.build
-
+# - dotnet msbuild /p:TargetFramework=netcoreapp2.0
+  - dotnet publish
