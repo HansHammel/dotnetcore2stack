@@ -6,10 +6,10 @@
 
   <ItemGroup>
     <PackageReference Include="Azure.ImageOptimizer" Version="1.1.0.38" />
-    <PackageReference Include="LigerShark.WebOptimizer.Core" Version="1.0.175-beta" />
+    <PackageReference Include="LigerShark.WebOptimizer.Core" Version="1.0.189" />
     <PackageReference Include="LigerShark.WebOptimizer.Sass" Version="1.0.33-beta" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
-    <PackageReference Include="Microsoft.SyndicationFeed.ReaderWriter" Version="1.0.1" />
+    <PackageReference Include="Microsoft.SyndicationFeed.ReaderWriter" Version="1.0.2" />
     <PackageReference Include="WebEssentials.AspNetCore.CdnTagHelpers">
       <Version>1.0.15</Version>
     </PackageReference>

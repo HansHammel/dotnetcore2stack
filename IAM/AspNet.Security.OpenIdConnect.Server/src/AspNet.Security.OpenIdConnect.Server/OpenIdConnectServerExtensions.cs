@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Licensed under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
  * See https://github.com/aspnet-contrib/AspNet.Security.OpenIdConnect.Server
  * for more information concerning the license and the contributors participating to this project.
@@ -516,8 +516,10 @@ namespace Microsoft.Extensions.DependencyInjection
             }
 
             // If the signing key is an asymmetric security key, ensure it has a private key.
-            if (key is AsymmetricSecurityKey asymmetricSecurityKey && !asymmetricSecurityKey.HasPrivateKey)
-            {
+            //if (key is AsymmetricSecurityKey asymmetricSecurityKey && !asymmetricSecurityKey.HasPrivateKey)
+            // TODO: fixed by me
+            if (key is AsymmetricSecurityKey asymmetricSecurityKey && !(asymmetricSecurityKey.PrivateKeyStatus == PrivateKeyStatus.Exists))
+                {
                 throw new InvalidOperationException("The asymmetric signing key doesn't contain the required private key.");
             }
 
