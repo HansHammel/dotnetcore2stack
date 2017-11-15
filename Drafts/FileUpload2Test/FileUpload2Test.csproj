@@ -27,8 +27,4 @@
     <ProjectReference Include="..\FileUpload2\FileUpload2.csproj" />
   </ItemGroup>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="CD $(MSBuildProjectDirectory)&#xD;&#xA;bower install" />
-  </Target>
-
 </Project>
