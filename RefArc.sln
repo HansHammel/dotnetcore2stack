@@ -54,7 +54,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfCert", "System\SelfCert
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CertificateGeneration", "CertificateGeneration", "{E4C39474-A0FF-4E19-B708-4E0100A2FD10}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test", "Drafts\test\test.csproj", "{F8862749-806A-47F2-B8EF-376671D0BEDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test1", "Drafts\test\test1.csproj", "{F8862749-806A-47F2-B8EF-376671D0BEDA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication1", "Drafts\WebApplication1\WebApplication1.csproj", "{E6D4B186-D7B7-4D93-80B6-FABF832A8E67}"
 EndProject
