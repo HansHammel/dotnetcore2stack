@@ -161,5 +161,15 @@ namespace TravisCiMon.Properties {
                 return ResourceManager.GetStream("sonata", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Icon ähnlich wie (Symbol).
+        /// </summary>
+        internal static System.Drawing.Icon travis {
+            get {
+                object obj = ResourceManager.GetObject("travis", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }
