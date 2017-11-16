@@ -1,6 +1,9 @@
 TODO: https://www.consul.io/api/index.html
 https://www.digitalocean.com/community/tutorials/how-to-secure-consul-with-tls-encryption-on-ubuntu-14-04
 
+https://github.com/Drawaes/CondenserDotNet
+https://github.com/PlayFab/consuldotnet
+
 	consul keygen
 	consul agent -ui
 
@@ -78,3 +81,136 @@ https://www.digitalocean.com/community/tutorials/how-to-secure-consul-with-tls-e
 	cache:
 	  directories:
 		- $CONSUL_DIR
+		
+		
+		
+language: generic
+
+addons:
+  apt:
+    packages:
+    - gettext
+    - libcurl4-openssl-dev
+    - libicu-dev
+    - libssl-dev
+    - libunwind8
+    - zlib1g
+
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      sudo: required
+
+before_install:
+  # Install OpenSSL
+  - if test "$TRAVIS_OS_NAME" == "osx"; then
+      brew install openssl;
+      brew link --force openssl;
+      export DOTNET_SDK_URL="https://go.microsoft.com/fwlink/?linkid=843444";
+    else
+      export DOTNET_SDK_URL="https://go.microsoft.com/fwlink/?linkid=843450";
+    fi
+
+  - export DOTNET_INSTALL_DIR="$PWD/.dotnetcli"
+
+  # Install .NET CLI
+  - mkdir $DOTNET_INSTALL_DIR
+  - curl -L $DOTNET_SDK_URL -o dotnet_package
+  - tar -xvzf dotnet_package -C $DOTNET_INSTALL_DIR
+
+  # Add dotnet to PATH
+  - export PATH="$DOTNET_INSTALL_DIR:$PATH"
+  
+install:
+  # Display dotnet version info
+  - which dotnet;
+    if [ $? -eq 0 ]; then
+      echo "Using dotnet:";
+      dotnet --info;
+    else
+      echo "dotnet.exe not found"
+      exit 1;
+    fi
+  # Restore dependencies
+  - dotnet restore
+
+before_script:
+  # Install consul
+  - if test "$TRAVIS_OS_NAME" == "osx"; then
+      wget 'https://releases.hashicorp.com/consul/0.7.0/consul_0.7.0_darwin_amd64.zip';
+      unzip "consul_0.7.0_darwin_amd64.zip";
+    else
+      wget 'https://releases.hashicorp.com/consul/0.7.0/consul_0.7.0_linux_amd64.zip';
+      unzip "consul_0.7.0_linux_amd64.zip";
+    fi
+  - ./consul --version
+
+script:
+  # Start Consul
+  - ./consul agent -server -bootstrap-expect 1 -log-level err -data-dir /tmp/consul -advertise=127.0.0.1 &
+  # Build sample
+  - dotnet test test/CondenserTests/CondenserTests.csproj
+  - dotnet test test/Condenser.Tests.Integration/Condenser.Tests.Integration.csproj
+
+
+
+appveyor.yml
+
+os: Visual Studio 2017
+build: off
+
+environment:
+  sonarkey:
+    secure: dqF6V11A7InHKcyOX6WDGE3oA54yZQm0r9VLio85ndCn2B8d9zVI2mJ3lQdDzO3o
+  COVERALLS_REPO_TOKEN:
+    secure: x41DSerLXKgGVbKIokF+zuR3eNRVJXsgJA6j5yggnCB8/TTyYfa/2euNflfGzCot   
+
+install:
+  - cmd: curl -fsS -o consul.zip https://releases.hashicorp.com/consul/0.7.5/consul_0.7.5_windows_amd64.zip
+  - cmd: 7z x consul.zip -o"C:\Consul" -y > nul
+  - ps: $MyProcess = Start-Process C:\Consul\consul.exe -ArgumentList "agent -server -log-level err -bootstrap-expect 1 -data-dir C:\Consul\Data -advertise=127.0.0.1" -PassThru
+
+before_test:
+  - ECHO %APPVEYOR_REPO_COMMIT_MESSAGE%
+  - dotnet --info
+  - VersionNumber.bat
+  - dotnet restore
+  
+test_script:
+  # Build sample
+  - dotnet test test/CondenserTests/CondenserTests.csproj
+  - dotnet test test/Condenser.Tests.Integration/Condenser.Tests.Integration.csproj
+  
+after_test:
+  # Build and pack source
+  - ps: iex ((Get-ChildItem ($env:USERPROFILE + '\.nuget\packages\OpenCover'))[0].FullName + '\tools\OpenCover.Console.exe' + ' -register:user -target:".\script\runtests.bat" -searchdirs:"..\test\Condenser.Tests.Integration\bin\Debug\netcoreapp1.1;..\test\CondenserTests\bin\debug\netcoreapp1.1" -oldstyle -output:coverage.xml -skipautoprops -hideskipped:All -returntargetcode -filter:"+[Condenser*]* -[*Test*]*"')
+  - ps: iex ((Get-ChildItem ($env:USERPROFILE + '\.nuget\packages\coveralls.io'))[0].FullName + '\tools\coveralls.net.exe' + ' --opencover coverage.xml')
+  - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
+  - pip install codecov
+  - codecov -f "coverage.xml"
+  - dotnet build -c Release
+  - dotnet pack -c Release src/CondenserDotNet.Client --version-suffix %suffix%
+  - dotnet pack -c Release src/CondenserDotNet.Server --version-suffix %suffix%
+  - dotnet pack -c Release src/CondenserDotNet.Core --version-suffix %suffix%
+  - dotnet pack -c Release src/CondenserDotNet.Configuration --version-suffix %suffix%
+  - dotnet pack -c Release src/CondenserDotNet.Middleware --version-suffix %suffix%
+  - dotnet pack -c Release src/CondenserDotNet.Server.Extensions --version-suffix %suffix%
+      
+  
+artifacts:
+  - path: '**/*.nupkg'
+    name: packages
+  - path: 'coverage.xml'
+    name: coverage
+    type: zip
+
+deploy:  
+- provider: NuGet
+  server: https://www.myget.org/F/condenserdotnet/api/v2/package
+  api_key:
+    secure: 5mBb0A2rlwk1Iq6FEo94XSORm9etc3xPn0oLZ8dIJ6Hmm1G7quqf+Bz6fm+ft+FK
+  skip_symbols: true
+  on:
+    branch: master
+  
