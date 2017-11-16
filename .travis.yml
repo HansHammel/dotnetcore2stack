@@ -10,29 +10,27 @@ matrix:
     mono: none
     before_install:
       - curl -sLo consul.zip https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip
-        - unzip consul.zip
-        - mkdir -p ~/bin
-        - mv consul ~/bin
-        - export PATH="~/bin:$PATH"
+      - unzip consul.zip
+      - mkdir -p ~/bin
+      - mv consul ~/bin
+      - export PATH="~/bin:$PATH"
   - os: osx
     osx_image: xcode8.3 # macOS 10.12
     dotnet: 2.0.0
     mono: none
     before_install:
       - curl -sLo consul.zip https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_darwin_amd64.zip
-        - unzip consul.zip
-        - mkdir -p ~/bin
-        - mv consul ~/bin
-        - export PATH="~/bin:$PATH"
+      - unzip consul.zip
+      - mkdir -p ~/bin
+      - mv consul ~/bin
+      - export PATH="~/bin:$PATH"
   - os: windows
     dotnet: 2.0.0
     mono: none
     before_install:
-      - curl -sLo consul.zip https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_windows_amd64.zip
-        - unzip consul.zip
-        - mkdir -p ~/bin
-        - mv consul ~/bin
-        - export PATH="~/bin:$PATH"        
+      - Invoke-WebRequest https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_windows_amd64.zip -OutFile %HomePath%\\consul.zip 
+      - Expand-Archive %HomePath%\\consul.zip -DestinationPath %HomePath%\\consul
+      - \$env:Path += ";%HomePath%\\consul"       
 #  include:
 #   - language: python
 #      python: 2.7
