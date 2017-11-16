@@ -1,8 +1,4 @@
 language: csharp
-env:
-  - CONSUL_VERSION=1.0.0
-  - NODE_ENV=testing
-  - GOMAXPROCS=4
 matrix:
   allow_failures:
   - os: osx
@@ -70,6 +66,10 @@ install:
 branches:  
   only:
     - master
+env:
+  - CONSUL_VERSION=1.0.0
+  - NODE_ENV=testing
+  - GOMAXPROCS=4    
 script:  
   - ulimit -n 1024
   - dotnet restore
