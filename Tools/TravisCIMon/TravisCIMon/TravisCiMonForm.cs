@@ -324,10 +324,7 @@ InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         private void notifyIcon1_DoubleClick(object sender, EventArgs e)
         {
 
-            Show();
-            WindowState = FormWindowState.Normal;
-            BringToFront();
-            Activate();
+
 
         }
 
@@ -429,7 +426,24 @@ InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 
         private void notifyIcon1_Click(object sender, EventArgs e)
         {
+            
+        }
+
+        private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
             Notify(true);
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Show();
+                WindowState = FormWindowState.Normal;
+                BringToFront();
+                Activate();
+            }
         }
     }
 }
