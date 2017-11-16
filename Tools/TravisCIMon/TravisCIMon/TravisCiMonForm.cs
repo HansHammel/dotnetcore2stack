@@ -252,15 +252,19 @@ namespace TravisCiMon
             {
 
                 {
-                    if (el.status == "Success" && onSuccess) // Failure Error
+                    if (el.status == "Success" && onSuccess) // Failure Error Unknown
                     {
-                        var toast = new Notification("TravisCI Build Status", el.name + ": " + el.status + "\r\n" + DateTime.Parse(el.time).ToString() + " Build "+el.build+": " + el.progress, 10, FormAnimator.AnimationMethod.Slide, FormAnimator.AnimationDirection.Up);
+                        DateTime date;
+                        date = DateTime.TryParse(el.time, out date) ? DateTime.Parse(el.time) : DateTime.Now;
+                        var toast = new Notification("TravisCI Build Status", el.name + ": " + el.status + "\r\n" + date.ToString() + " Build "+el.build+": " + el.progress, 10, FormAnimator.AnimationMethod.Slide, FormAnimator.AnimationDirection.Up);
                         toast.BackgroundImage = Resources.green;
                         toast.Show();
                     }
                     else
                     {
-                        var toast = new Notification("TravisCI Build Status", el.name + ": " + el.status + "\r\n" + DateTime.Parse(el.time).ToString() + " Build " + el.build + ": " + el.progress, 10, FormAnimator.AnimationMethod.Slide, FormAnimator.AnimationDirection.Up);
+                        DateTime date;
+                        date = DateTime.TryParse(el.time, out date) ? DateTime.Parse(el.time) : DateTime.Now;
+                        var toast = new Notification("TravisCI Build Status", el.name + ": " + el.status + "\r\n" + date.ToString() + " Build " + el.build + ": " + el.progress, 10, FormAnimator.AnimationMethod.Slide, FormAnimator.AnimationDirection.Up);
                         toast.BackgroundImage = Resources.red;
                         PlayNotificationSound(Resources.sonata);
                         toast.Show();
