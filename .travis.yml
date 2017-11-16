@@ -24,12 +24,6 @@ matrix:
       - mkdir -p ~/bin
       - mv consul ~/bin
       - export PATH="~/bin:$PATH"
-  - os: windows
-    mono: none
-    before_install:
-      - Invoke-WebRequest https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_windows_amd64.zip -OutFile %HomePath%\\consul.zip 
-      - Expand-Archive %HomePath%\\consul.zip -DestinationPath %HomePath%\\consul
-      - \$env:Path += ";%HomePath%\\consul"       
 #  include:
 #   - language: python
 #      python: 2.7
@@ -79,6 +73,7 @@ env:
     #- GOMAXPROCS=4    
 script:  
   - ulimit -n 1024
+  - consul agent -dev -config-dir=$TRAVIS_BUILD_DIR/Tools/etc/consul.d -data-dir=$TRAVIS_BUILD_DIR/Tools/etc/data -enable-script-checks
   - dotnet restore
   - dotnet build
 # - dotnet build -f netcoreapp2.0
