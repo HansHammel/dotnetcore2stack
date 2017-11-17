@@ -1,0 +1,45 @@
+        private static int? FreeTcpPort(int startPort, int endPort)
+        {
+            int? port = startPort;
+            TcpListener l;
+            if (port >= startPort && port <= endPort)
+            {
+                string host = "localhost";
+                int port2 = startPort;
+                var x = Dns.GetHostAddresses(host);
+                IPAddress addr = (IPAddress)x[1];
+                try
+                {
+                    TcpListener tcpList = new TcpListener(addr, port2);
+                    tcpList.ExclusiveAddressUse = true;
+                    tcpList.Start();
+                    return port2;
+                }
+                catch (SocketException ex)
+                {
+                    // Catch exception here if port is blocked
+                    Console.WriteLine(ex);
+                    return null;
+                }
+                /*
+                try
+                {
+                    l = new TcpListener(IPAddress.Loopback, startPort);
+                    l.ExclusiveAddressUse = true;
+                    l.Start();
+                    port = ((IPEndPoint)l.LocalEndpoint).Port;
+                    while (l.Server.IsBound)
+                    {
+                        l.Stop();
+                        return port;
+                    }
+                }
+                catch (SocketException ex)
+                {
+                    Console.WriteLine(ex);
+                    return null;
+                }
+                */
+            }
+            return null;
+        }
