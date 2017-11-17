@@ -79,5 +79,6 @@ script:
 # - dotnet build -f netcoreapp2.0
 # - xbuild /m test.build
   - dotnet msbuild /m test.build
+  - consul leave
 # - dotnet msbuild /p:TargetFramework=netcoreapp2.0
 #  - dotnet publish

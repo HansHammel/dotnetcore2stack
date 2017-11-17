@@ -237,40 +237,60 @@ namespace TravisCiMon
 
         private void Notify(Boolean onSuccess)
         {
-            var doc = XDocument.Load(listBox2.Items[0].ToString());
-            var project = from el in doc.Descendants("Project")
-                          select new
-                          {
-                              status = el.Attribute("lastBuildStatus").Value,
-                              name = el.Attribute("name").Value,
-                              time = el.Attribute("lastBuildTime").Value,
-                              build = el.Attribute("lastBuildLabel").Value,
-                              progress = el.Attribute("activity").Value
-                          };
-
-            foreach (var el in project)
+            try
             {
+                var doc = XDocument.Load(listBox2.Items[0].ToString());
+                var project = from el in doc.Descendants("Project")
+                              select new
+                              {
+                                  status = el.Attribute("lastBuildStatus").Value,
+                                  name = el.Attribute("name").Value,
+                                  time = el.Attribute("lastBuildTime").Value,
+                                  build = el.Attribute("lastBuildLabel").Value,
+                                  progress = el.Attribute("activity").Value
+                              };
 
+                foreach (var el in project)
                 {
-                    if (el.status == "Success" && onSuccess) // Failure Error Unknown
-                    {
-                        DateTime date;
-                        date = DateTime.TryParse(el.time, out date) ? DateTime.Parse(el.time) : DateTime.Now;
-                        var toast = new Notification("TravisCI Build Status", el.name + ": " + el.status + "\r\n" + date.ToString() + " Build "+el.build+": " + el.progress, 10, FormAnimator.AnimationMethod.Slide, FormAnimator.AnimationDirection.Up);
-                        toast.BackgroundImage = Resources.green;
-                        toast.Show();
-                    }
-                    else
-                    {
-                        DateTime date;
-                        date = DateTime.TryParse(el.time, out date) ? DateTime.Parse(el.time) : DateTime.Now;
-                        var toast = new Notification("TravisCI Build Status", el.name + ": " + el.status + "\r\n" + date.ToString() + " Build " + el.build + ": " + el.progress, 10, FormAnimator.AnimationMethod.Slide, FormAnimator.AnimationDirection.Up);
-                        toast.BackgroundImage = Resources.red;
-                        PlayNotificationSound(Resources.sonata);
-                        toast.Show();
-                    }
 
+                    {
+                        if (el.status == "Success" && onSuccess) // Failure Error Unknown
+                        {
+                            DateTime date;
+                            date = DateTime.TryParse(el.time, out date) ? DateTime.Parse(el.time) : DateTime.Now;
+                            var toast = new Notification("TravisCI Build Status", el.name + ": " + el.status + "\r\n" + date.ToString() + " Build " + el.build + ": " + el.progress, 10, FormAnimator.AnimationMethod.Slide, FormAnimator.AnimationDirection.Up);
+                            toast.BackgroundImage = Resources.green;
+                            toast.Show();
+                        }
+                        else
+                        {
+                            DateTime date;
+                            date = DateTime.TryParse(el.time, out date) ? DateTime.Parse(el.time) : DateTime.Now;
+                            var toast = new Notification("TravisCI Build Status", el.name + ": " + el.status + "\r\n" + date.ToString() + " Build " + el.build + ": " + el.progress, 10, FormAnimator.AnimationMethod.Slide, FormAnimator.AnimationDirection.Up);
+                            if (el.status == "Success")  {
+                                toast.BackgroundImage = Resources.green;
+                            }
+                            else {
+                                toast.BackgroundImage = Resources.red;
+                                PlayNotificationSound(Resources.sonata);
+                            }
+                            toast.Show();
+                        }
+
+                    }
                 }
+            } catch (Exception ex)
+            {
+                if (ex is NotSupportedException)
+                    MessageBox.Show(listBox2.Items[0].ToString(), ex.Message);
+                if (ex is System.Net.WebException)
+                {
+                    Console.WriteLine(ex);
+                    //todo: set timer to shorter period
+                    return; //retry next time
+                }
+                else
+                    throw; //rethrow
             }
         }
 
