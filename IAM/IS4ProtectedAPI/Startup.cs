@@ -80,7 +80,7 @@ namespace IS4ProtectedAPI
             using (var client = new ConsulClient()) // uses default host:port which is localhost:8500
             {
                 var c = new AgentServiceCheck();
-                c.HTTP = "http://localhost:" + Program.freePort + "/identity";
+                c.TCP = "http://localhost:" + Program.freePort;
                 c.Interval = TimeSpan.FromSeconds(60);
                 var agentReg = new AgentServiceRegistration()
                 {
