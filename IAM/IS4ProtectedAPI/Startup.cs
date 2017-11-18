@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using Consul;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -75,12 +77,37 @@ namespace IS4ProtectedAPI
         private void OnStarted()
         {
             // Perform post-startup activities here
+            using (var client = new ConsulClient()) // uses default host:port which is localhost:8500
+            {
+                var c = new AgentServiceCheck();
+                c.HTTP = "http://localhost:" + Program.freePort + "/identity";
+                c.Interval = TimeSpan.FromSeconds(60);
+                var agentReg = new AgentServiceRegistration()
+                {
+                    Address = Program.serviceConfiguration.Host,
+                    //ID = Program.serviceConfiguration.ServiceID,
+                    Name = Program.serviceConfiguration.Name,
+                    Check = c,
+                    Port = Program.freePort
+                };
+                if (client.Agent.ServiceRegister(agentReg).GetAwaiter().GetResult().StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    Console.WriteLine("Service registred with consul");
+                }
+            }
         }
 
         private void OnStopping()
         {
             // Perform on-stopping activities here
             Console.WriteLine("API Server shutting down...");
+            using (var client = new ConsulClient())
+            {
+                var id = Program.serviceConfiguration.ServiceID;
+                var r = client.Agent.ServiceDeregister(Program.serviceConfiguration.Name).GetAwaiter().GetResult();
+                if (r.StatusCode == System.Net.HttpStatusCode.OK)
+                    Console.WriteLine("Service deregistred");
+            }
         }
 
         private void OnStopped()

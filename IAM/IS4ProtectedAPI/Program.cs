@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -17,16 +18,48 @@ namespace IS4ProtectedAPI
 {
     public class Program
     {
-        private static int freePort = 5000;
+        public class ServiceConfiguartion
+        {
+            private string _transport;
+            private int _port;
+            private string _host;
+
+            public int Port { get; }
+            public string Transport { get; }
+            public string Host { get; }
+            public string URL { get { return $@"_transport://_host:_port";  } }
+            public string ListeningURL { get { return _transport + "://*:" + _port; } }
+            public string ServiceID { get { return System.Guid.NewGuid().ToString(); }  }
+            public string Name { get {
+                    var a = Assembly.GetEntryAssembly();
+                    return a.GetName().Name + " v" + a.GetName().Version;
+                }
+            }
+
+            public ServiceConfiguartion(int port): this("http", "localhost", port) { }
+            public ServiceConfiguartion(string transport = "http", string host = "localhost", int port = 5000)
+            {
+                Port = _port = port;
+                Host = _host = host;
+                Transport = _transport = transport;
+            }
+        }
+
+        public static ServiceConfiguartion serviceConfiguration;
+        public static int freePort = 5000;
 
         public static void Main(string[] args)
         {
-            Boolean succeeded = false;
-            while (!succeeded)
+            Boolean retry = true;
+            IWebHost host;
+            while (retry)
             {
                 try
                 {
-                    BuildWebHost(args).Run();
+                    serviceConfiguration = new ServiceConfiguartion(freePort);
+                    host = BuildWebHost(args);
+                    host.Run();
+                    retry = false;
                 }
                 catch (System.IO.IOException ex)
                 {
@@ -36,10 +69,15 @@ namespace IS4ProtectedAPI
                         freePort += 1;
                     }
                     else throw; // rethrow
+                } finally
+                {
+                    host = null;
                 }
             }
             Console.ReadKey();
         }
+
+        
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
@@ -49,7 +87,7 @@ namespace IS4ProtectedAPI
                 //.UseIISIntegration()
                 .CaptureStartupErrors(true)
                 // bind to all nics using specific port
-                .UseUrls("http://*:" + freePort.ToString())
+                .UseUrls(serviceConfiguration.ListeningURL)
                 .UseStartup<Startup>()
                 .Build();
     }

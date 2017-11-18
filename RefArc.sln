@@ -37,6 +37,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vue", "UI\Vue\Vue.csproj", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Drafts", "Drafts", "{F0FEB6A7-4762-419F-B28B-D9C5C1C8F6F8}"
 	ProjectSection(SolutionItems) = preProject
+		Class1.cs = Class1.cs
+		config.draf.json = config.draf.json
+		configdraft.cs = configdraft.cs
 		test.jpg = test.jpg
 		Drafts\FileUpload2\wwwroot\test.pdf = Drafts\FileUpload2\wwwroot\test.pdf
 	EndProjectSection
@@ -94,9 +97,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleApi", "IAM\API\Sample
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleClientCredentialsFlow", "IAM\Clients\ConsoleClientCredentialsFlow\ConsoleClientCredentialsFlow.csproj", "{7DD12BD2-948B-4D01-A2A0-5EAD3ED6D614}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer4AuthServer", "IAM\IdentityServer4AuthServer\IdentityServer4AuthServer.csproj", "{810DE9E0-4AA6-46B7-A622-DB0AEE213968}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer4AuthServer", "IAM\IdentityServer4AuthServer\IdentityServer4AuthServer.csproj", "{810DE9E0-4AA6-46B7-A622-DB0AEE213968}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IS4ProtectedAPI", "IAM\IS4ProtectedAPI\IS4ProtectedAPI.csproj", "{98F5BB42-C86B-4ABF-A8EE-990C6E15F97D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IS4ProtectedAPI", "IAM\IS4ProtectedAPI\IS4ProtectedAPI.csproj", "{98F5BB42-C86B-4ABF-A8EE-990C6E15F97D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceDiscovery", "ServiceDiscovery", "{87690623-3E00-4EB8-8E18-0BA281219A36}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consul", "ServiceDiscovery\consuldotnet\Consul\Consul.csproj", "{88791252-41AF-410E-9242-4B6CB59F04D0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Consul.Test", "ServiceDiscovery\consuldotnet\Consul.Test\Consul.Test.csproj", "{F132BA24-7AAF-4832-A030-4AE83006FD5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -212,6 +221,14 @@ Global
 		{98F5BB42-C86B-4ABF-A8EE-990C6E15F97D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98F5BB42-C86B-4ABF-A8EE-990C6E15F97D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98F5BB42-C86B-4ABF-A8EE-990C6E15F97D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88791252-41AF-410E-9242-4B6CB59F04D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88791252-41AF-410E-9242-4B6CB59F04D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88791252-41AF-410E-9242-4B6CB59F04D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88791252-41AF-410E-9242-4B6CB59F04D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F132BA24-7AAF-4832-A030-4AE83006FD5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F132BA24-7AAF-4832-A030-4AE83006FD5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F132BA24-7AAF-4832-A030-4AE83006FD5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F132BA24-7AAF-4832-A030-4AE83006FD5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -248,6 +265,8 @@ Global
 		{7DD12BD2-948B-4D01-A2A0-5EAD3ED6D614} = {EA52A636-3E59-4381-8985-162112991EB2}
 		{810DE9E0-4AA6-46B7-A622-DB0AEE213968} = {B9ABD377-D411-4885-B6E6-A3AEFBEB55C8}
 		{98F5BB42-C86B-4ABF-A8EE-990C6E15F97D} = {B9ABD377-D411-4885-B6E6-A3AEFBEB55C8}
+		{88791252-41AF-410E-9242-4B6CB59F04D0} = {87690623-3E00-4EB8-8E18-0BA281219A36}
+		{F132BA24-7AAF-4832-A030-4AE83006FD5F} = {87690623-3E00-4EB8-8E18-0BA281219A36}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {123847FC-EBBB-4C7F-A530-4C1538D7C746}
