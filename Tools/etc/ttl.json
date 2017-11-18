@@ -1,0 +1,10 @@
+{
+  "ID": "web",
+  "Name": "web",
+  "Address": "172.17.0.3",
+  "Port": 80,
+  "check": {
+     "Interval": "10s",
+     "TTL": "15s"
+   }
+}

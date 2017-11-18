@@ -1,0 +1,5 @@
+https://docs.traefik.io/
+
+https://github.com/containous/traefik/releases/download/v1.4.3/traefik_darwin-amd64
+https://github.com/containous/traefik/releases/download/v1.4.3/traefik_linux-amd64
+https://github.com/containous/traefik/releases/download/v1.4.3/traefik_windows-amd64.exe

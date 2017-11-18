@@ -1,0 +1,9 @@
+{
+	"check": {
+	    "id":"api",
+		"name": "HTTP API on port 5000",
+		"http": "http://localhost:5000/_health",
+		"interval": "60s",
+		"timeout": "1s"
+	}
+}

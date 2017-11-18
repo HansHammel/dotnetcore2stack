@@ -87,7 +87,6 @@ namespace IS4ProtectedAPI
         {
             // Perform post-stopped activities here
             Console.WriteLine("API Server was shut down. Press a key to exit.");
-            Console.ReadKey();
         }
     }
 }

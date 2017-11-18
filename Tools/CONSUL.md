@@ -1,8 +1,24 @@
 TODO: https://www.consul.io/api/index.html
 https://www.digitalocean.com/community/tutorials/how-to-secure-consul-with-tls-encryption-on-ubuntu-14-04
+-> https://www.digitalocean.com/community/tutorials/how-to-configure-consul-in-a-production-environment-on-ubuntu-14-04
+
+-> http://blog.medhat.ca/2016/10/codefirst-with-net-core-console_1.html
+
+https://github.com/hashicorp/consul-template
 
 https://github.com/Drawaes/CondenserDotNet
 https://github.com/PlayFab/consuldotnet
+
+Install-Package DnsClient 
+dotnet add package DnsClient 
+Install-Package Consul 
+dotnet add package Consul
+
+https://releases.hashicorp.com/consul-template/0.19.4/consul-template_0.19.4_windows_amd64.zip
+https://releases.hashicorp.com/consul-template/0.19.4/consul-template_0.19.4_linux_amd64.zip
+https://releases.hashicorp.com/consul-template/0.19.4/consul-template_0.19.4_darwin_amd64.zip
+
+http://www.mammatustech.com/consul-service-discovery-and-health-for-microservices-architecture-tutorial
 
 	consul keygen
 	consul agent -ui
@@ -11,7 +27,7 @@ https://github.com/PlayFab/consuldotnet
 	consul agent -dev -ui
 	// consul -> localhost:8300
 	// DNS -> localhost:8600
-	// UI at http://localhost:8500/ui
+	// UI at http://127.0.0.1:8500/ui
 	// show current members
 	consul members
 	// using HTTP API

@@ -1,0 +1,13 @@
+{
+	"service": {
+		"name": "pg-db",
+		"tags": ["follower"],
+		"port": 5432,
+		"checks": [{
+			"id": "pg-alive",
+			"notes": "Check PostgresQL",
+			"script": "pg_isready -h localhost -p 5432",
+			"interval": "60s"
+		}]
+	}
+}

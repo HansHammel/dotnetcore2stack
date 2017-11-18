@@ -1,0 +1,4 @@
+https://www.pgconfig.org/#/tuning
+http://www.databaseanswers.org/data_models/
+https://docs.citusdata.com/en/v7.1/portals/getting_started.html
+https://github.com/dhamaniasad/awesome-postgres

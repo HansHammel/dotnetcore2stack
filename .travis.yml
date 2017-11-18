@@ -1,7 +1,7 @@
 language: csharp
 matrix:
-  allow_failures:
-  - os: osx
+#  allow_failures:
+#  - os: osx
   include:
   - os: linux
     dist: trusty # Ubuntu 14.04

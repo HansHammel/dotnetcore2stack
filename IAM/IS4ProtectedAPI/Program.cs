@@ -17,10 +17,28 @@ namespace IS4ProtectedAPI
 {
     public class Program
     {
+        private static int freePort = 5000;
 
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            Boolean succeeded = false;
+            while (!succeeded)
+            {
+                try
+                {
+                    BuildWebHost(args).Run();
+                }
+                catch (System.IO.IOException ex)
+                {
+                    // try another port
+                    if (ex.InnerException.Message.Contains("EADDRINUSE address already in use"))
+                    {
+                        freePort += 1;
+                    }
+                    else throw; // rethrow
+                }
+            }
+            Console.ReadKey();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
@@ -31,7 +49,7 @@ namespace IS4ProtectedAPI
                 //.UseIISIntegration()
                 .CaptureStartupErrors(true)
                 // bind to all nics using specific port
-                .UseUrls("http://*:5000")
+                .UseUrls("http://*:" + freePort.ToString())
                 .UseStartup<Startup>()
                 .Build();
     }

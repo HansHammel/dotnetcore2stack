@@ -1,0 +1,11 @@
+{
+  "ID": "http",
+  "Name": "http",
+  "Address": "172.17.0.3",
+  "Port": 80,
+  "check": {
+    "tcp": "172.17.0.3:80",
+    "interval": "10s",
+    "timeout": "1s"
+   }
+}
