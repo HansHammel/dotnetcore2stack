@@ -23,13 +23,14 @@ namespace IS4ProtectedAPI
             private string _transport;
             private int _port;
             private string _host;
+            private string _id;
 
             public int Port { get; }
             public string Transport { get; }
             public string Host { get; }
             public string URL { get { return _transport + "://" + _host + ":" + _port;  } }
             public string ListeningURL { get { return _transport + "://*:" + _port; } }
-            public string ServiceID { get { return System.Guid.NewGuid().ToString(); }  }
+            public string ServiceID { get { return _id; }  }
             public string Name { get {
                     var a = Assembly.GetEntryAssembly();
                     return a.GetName().Name + " v" + a.GetName().Version;
@@ -42,6 +43,7 @@ namespace IS4ProtectedAPI
                 Port = _port = port;
                 Host = _host = host;
                 Transport = _transport = transport;
+                _id = System.Guid.NewGuid().ToString();
             }
         }
 
@@ -69,9 +71,6 @@ namespace IS4ProtectedAPI
                         freePort += 1;
                     }
                     else throw; // rethrow
-                } finally
-                {
-                    host = null;
                 }
             }
             Console.ReadKey();

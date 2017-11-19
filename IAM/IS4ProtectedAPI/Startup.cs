@@ -89,15 +89,19 @@ namespace IS4ProtectedAPI
                 var agentReg = new AgentServiceRegistration()
                 {
                     Address = Program.serviceConfiguration.Host,
-                    //ID = Program.serviceConfiguration.ServiceID,
+                    // BUG: this is horrorly wrong should contain the id of the instance but deregistration not working at the moment
+                    ID = Program.serviceConfiguration.ServiceID,
                     Name = Program.serviceConfiguration.Name,
                     Checks = new AgentServiceCheck[] { httpCheck },
                     Port = Program.freePort
                 };
-                if (client.Agent.ServiceRegister(agentReg).GetAwaiter().GetResult().StatusCode == System.Net.HttpStatusCode.OK)
+                // TODO: catch registration fails and shutdown or retry
+                var r = client.Agent.ServiceRegister(agentReg).GetAwaiter().GetResult(); //throws http errors
+                if (r.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     Console.WriteLine("Service registred with consul");
                 }
+                else throw new ServiceException("Service registration failed"); //don't swallow a faild registration
             }
         }
 
@@ -108,9 +112,12 @@ namespace IS4ProtectedAPI
             using (var client = new ConsulClient())
             {
                 var id = Program.serviceConfiguration.ServiceID;
-                var r = client.Agent.ServiceDeregister(Program.serviceConfiguration.Name).GetAwaiter().GetResult();
+                // BUG: this is horrorly wrong should be the id of the instance not the name of the service
+                var r = client.Agent.ServiceDeregister(Program.serviceConfiguration.ServiceID).GetAwaiter().GetResult();
                 if (r.StatusCode == System.Net.HttpStatusCode.OK)
                     Console.WriteLine("Service deregistred");
+                else throw new ServiceException("Service deregistration failed"); //don't swallow a faild registration
+                client.Dispose();
             }
         }
 
