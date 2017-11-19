@@ -27,7 +27,7 @@ namespace IS4ProtectedAPI
             public int Port { get; }
             public string Transport { get; }
             public string Host { get; }
-            public string URL { get { return $@"_transport://_host:_port";  } }
+            public string URL { get { return _transport + "://" + _host + ":" + _port;  } }
             public string ListeningURL { get { return _transport + "://*:" + _port; } }
             public string ServiceID { get { return System.Guid.NewGuid().ToString(); }  }
             public string Name { get {

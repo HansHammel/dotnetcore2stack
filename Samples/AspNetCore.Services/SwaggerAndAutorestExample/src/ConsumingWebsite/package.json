@@ -1,0 +1,10 @@
+{
+  "name": "website",
+  "description": "Used for generation of AutoRest client only",
+  "scripts": {
+    "generate": "autorest --namespace=ConsumingWebsite.Clients.DataService --input-file=http://localhost:5200/swagger/doc/swagger.json --output-folder=Clients.DataService --csharp"
+  },
+  "devDependencies": {
+    "autorest": "^1.1.0"
+  }
+}

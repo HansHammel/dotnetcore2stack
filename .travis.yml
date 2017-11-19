@@ -58,6 +58,12 @@ matrix:
     #packages:
     #- dotnet-hostfxr-1.0.1
     #- dotnet-sharedframework-microsoft.netcore.app-1.0.5
+cache:
+  directories:
+    - $HOME/.yarn-cache
+    - $HOME/.npm
+    - bower_components
+    - node_modules
 install:
   - ulimit -n 1024
   - nvm install 6.11.5

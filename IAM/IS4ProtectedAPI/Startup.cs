@@ -79,15 +79,19 @@ namespace IS4ProtectedAPI
             // Perform post-startup activities here
             using (var client = new ConsulClient()) // uses default host:port which is localhost:8500
             {
-                var c = new AgentServiceCheck();
-                c.TCP = "http://localhost:" + Program.freePort;
-                c.Interval = TimeSpan.FromSeconds(60);
+                var httpCheck = new AgentServiceCheck()
+                {
+                    DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(60),
+                    Interval = TimeSpan.FromSeconds(10),
+                    HTTP = $@"{Program.serviceConfiguration.URL}/HealthCheck",
+                    Timeout = TimeSpan.FromSeconds(5)
+                };
                 var agentReg = new AgentServiceRegistration()
                 {
                     Address = Program.serviceConfiguration.Host,
                     //ID = Program.serviceConfiguration.ServiceID,
                     Name = Program.serviceConfiguration.Name,
-                    Check = c,
+                    Checks = new AgentServiceCheck[] { httpCheck },
                     Port = Program.freePort
                 };
                 if (client.Agent.ServiceRegister(agentReg).GetAwaiter().GetResult().StatusCode == System.Net.HttpStatusCode.OK)
