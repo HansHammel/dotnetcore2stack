@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Vue.Controllers
+namespace RefArc.UI.Vue.Controllers
 {
     [Route("api/[controller]")]
     public class SampleDataController : Controller

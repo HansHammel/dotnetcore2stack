@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Built-By: jkiss.org
+Build-Time: 201711121506
+Created-By: jkiss.org
+Build-Jdk: 1.8.0_141
+

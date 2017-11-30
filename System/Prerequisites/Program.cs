@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace System.Prerequisites
+namespace RefArc.System.Prerequisites
 {
     class Program
     {

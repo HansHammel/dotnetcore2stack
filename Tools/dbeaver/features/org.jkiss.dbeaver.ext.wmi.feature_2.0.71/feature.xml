@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.jkiss.dbeaver.ext.wmi.feature"
+      label="%featureName"
+      version="2.0.71"
+      provider-name="%providerName"
+      plugin="org.jkiss.dbeaver.ext.wmi">
+
+   <description>
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <requires>
+      <import feature="org.jkiss.dbeaver.core.feature" version="1.0.0"/>
+   </requires>
+
+   <plugin
+         id="org.jkiss.dbeaver.ext.wmi"
+         os="win32"
+         download-size="48"
+         install-size="108"
+         version="2.0.71"
+         unpack="false"/>
+
+   <plugin
+         id="org.jkiss.wmi"
+         os="win32"
+         download-size="192"
+         install-size="401"
+         version="2.0.62"
+         unpack="false"/>
+
+</feature>

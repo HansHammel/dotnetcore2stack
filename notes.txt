@@ -1,0 +1,1050 @@
+//TODO:https://docs.microsoft.com/en-us/aspnet/core/security/authorization/roles
+[Authorize(Roles = "Administrator")] //role based auth
+[Authorize(Policy = "EmployeeOnly")] //claim based auth
+
+Erlang, Pony, Akka, Akka.NET, Project Orleans, Service Fabric ActFab, Orbit,
+
+Use tools like Consul, Etcd, Zookeeper for service discovery, Docker using Swarm, Rancher, Kubernetes for deployment and clustering.
+
+CQRS stands for Command Query Responsibility Segregation
+DDD, CQRS, and Event Sourcing
+
+c# command action event message controller task delegate actor
+
+asynchronous tasks vs. parallel (TPL) tasks
+Use Task.Run to call CPU-bound methods
+do not use Task.Run in the implementation of the method; instead, use Task.Run to call the method. 
+// Documentation: This method is CPU-bound (use Task.Run to call from a UI thread).
+void DoWork();
+
+Asynchronous methods should have an asynchronous signature:
+
+Task DoWorkAsync();
+
+And methods that are a mixture of synchronous and asynchronous work should have an asynchronous signature with documentation pointing out their partially-synchronous nature:
+
+// Documentation: This method is CPU-bound (use Task.Run to call from a UI thread).
+Task DoWorkAsync();
+
+
+A Repository should only really concern itself with the persistence of Aggregates
+A DTO was originally defined to be used in conjunction with a Remote Facade. The DTO:
+When used to move data from the Domain Layer to the Presentation Layer, a DTO is:
+A dedicated DTO Assembler has the single responsibility of mapping (as in Mapper) the attributes from the Aggregate(s) to the DTO.
+A DTO Assembler can live in an Application Service that is a client of your Repository. The Application Service “will use Repositories to read the necessary Aggregate instances and then delegate to a DTO Assembler [Fowler, P of EAA] to map the attributes of the DTO.” 
+
+https://dotnetdaily.net/featured/n-tier-architecture-asp-net
+
+Web Project
+Db Project
+Business Logic Project
+Model Project
+
+Presentation Layer
+ClassModel/ClassViewModel
+ClassControler
+
+ClassDTO
+
+BLL/Domain Layer
+Class
+ClassService
+
+ClassDTO
+
+DAL/DB Layer
+ClassRepository
+ClassEntity
+ClassDB
+DB
+
+
+
+
+
+embed (or expand) query parameter
+GET /tickets/12?embed=customer.name,assigned_user
+
+A RESTful API should be stateless. This means that request authentication should not depend on cookies or sessions. Instead, each request should come with some sort authentication credentials.
+
+ OAuth 2 should be used to provide secure token transfer to a third party. OAuth 2 uses Bearer tokens & also depends on SSL for its underlying transport encryption.
+
+An API that needs to support JSONP will need a third method of authentication, as JSONP requests cannot send HTTP Basic Auth credentials or Bearer tokens. In this case, a special query parameter access_token can be used.
+
+Note: there is an inherent security issue in using a query parameter for the token as most web servers store query parameters in server logs.
+
+error
+{
+  "code" : 1234,
+  "message" : "Something bad happened :(",
+  "description" : "More details about the error here"
+}
+
+
+DTO classes, Domain classes, and Entity classes
+
+[DataContract(Name = "ComputerDTO")]
+public class ComputerDTO
+{
+    [DataMember(Name = "Hostname")]
+    public string Hostname { get; set; }
+
+    [DataMember(Name = "ServiceTag")]
+    public string ServiceTag { get; set; }
+
+  // ... lots more
+}
+[Table("Inventory_Base")]
+public class ComputerEntity
+{
+    // primary key
+    [Key]
+    public int AssetID { get; set; }
+
+    // foreign keys
+    public int? ClientID { get; set; }
+
+    // these props are fine without custom mapping
+    public string Hostname { get; set; }
+    public string ServiceTag { get; set; }
+    // ... plus a bunch more in addition to my navigation properties
+}
+public class Computer
+{
+   public string Hostname { get; set; }
+   public string ServiceTag { get; set; }
+   // ... lots more, pretty much mirrors the DTO
+
+   public string Method1(string param1)
+   {
+       // lots of methods and logic go in here
+   }
+}
+
+
+    services.AddEntityFramework()
+        .AddSqlServer()
+        .AddDbContext<MyApplicationContext>("myconnectionstring  or reference to it");
+
+
+domain model, view model, persistence model
+
+Command Pattern
+Factory Pattern
+Fascade Pattern
+Repository Pattern
+
+wwwroot
+Content
+Controllers
+Data
+Models
+Services
+Views
+->Shared
+Core
+->Interfaces
+->Mappings
+->Models
+Infrastructure
+->Data
+Scripts
+
+ProjectName - MVC
+ProjectName.DAL 
+->EntityModels
+->Infrastructure - Manager, Pagination, Context, Module, UnitOfWork, Factory
+->Interfaces
+ProjectName.common
+ProjectName.Core
+->Interfaces
+->Mappings
+->Models
+ProjectName.Tests
+
+organize code by filetype area or feature
+
+Areas
+->Some
+-->Controllers
+-->Views
+
+namespace WithAreas.Areas.Ninjas.Controllers
+{
+  [Area("Ninjas")]
+  public class HomeController : Controller
+
+
+app.UseMvc(routes =>
+{
+  // Areas support
+  routes.MapRoute(
+    name: "areaRoute",
+    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+  routes.MapRoute(
+    name: "default",
+    template: "{controller=Home}/{action=Index}/{id?}");
+});
+
+
+UnitTests
+Documents
+Installer
+Library
+Scripts like *.sql
+.Data.Repository
+.Data.Classes
+.Services
+.Business
+.Helpers
+.UI
+.Interfaces
+
+Product.Core
+Product.Model
+Product.Presenter
+Product.Persistence
+Product.UI
+Product.Validation
+Product.Report
+Product.Web
+
+
+•Wadmt (solution) •Wadmt.Common
+•Wadmt.Data •Wadmt.Data.MySql
+•Wadmt.Data.SqlServer
+•Wadmt.Data.Oracle
+
+•Wadmt.Domain
+•Wadmt.Services
+•Wadmt.Tests •Wadmt.Tests.Common
+•Wadmt.Tests.Domain
+•Wadmt.Tests.Services
+•Wadmt.Tests.Integration
+
+•Wadmt.Web
+
+Company (solution)
+  Company.Common (shared library)
+  Company.Project (Main application UI)
+  Company.Project.UnitTests (Unit tests for all project modules)
+  Company.Project.IntegrationTests (integration tests for all project modules)
+  Company.Project.AutomationTests (tests that invoke the UI)
+  Company.Project.Model (ORM and business logic layer)
+  Company.Project.Webapp (Web frontend/web service layer)
+  Company.Project.WebClient (client code for web services)
+
+Keep the project name out off solution and project directories!
+ - cer
+  - res
+  - src
+   - Common
+   - Data
+   - UI
+   - Logic
+   - Logic._Tests  
+
+
+
+Multi Language Support - 
+Service Discovery - etcd, consul, Eurika
+Self/Auto/Dynamic Configuration - consul
+EF -> PostgresQL/MS SQL
+WS/WSS 
+Messagebroker AMQP MQTT - RabbitMQ
+EventSourcing/ MessageBus
+HTTP/REST/ WebAPI  - ASP.NET Core 2.0 & jQuery
+SPA - jQuery + X?
+TLS - ASP.NET Core
+IAM - OAuth2, OpenID Connect, IdentityServer4, JWT, SSO
+Access Token 
+ID/Session Token (JWT = Data + Signature)
+Loadbalancer
+API Gateway
+Reverse Proxy
+stateless proxy
+HA/ Cluster/ Failover/ Sharding
+Centralized Logging/ Monitoring
+Redis
+MongoDB
+Event Sourcing and Command Query Responsibility Segregation (CQRS).
+Versioning
+(Push)Notifications/Pub-sub/Message Broker/Queueing 
+RPC 
+https://zeroc.com/downloads/builders
+->https://github.com/grpc/grpc/blob/master/INSTALL.md
+
+caddy (no), fabio(maybe), traefik (yep)
+
+log to stdout sterr use user and request correlation id
+lifecycle, application, access
+
+Data replication
+Distributed eployment
+routing
+centralized logging
+health checks
+ui composition
+
+DI Autofac, Autofac.Extensions.DependencyInjection 
+
+
+Core Components
+•Consul for service discovery
+•Vault for managing secrets
+--•Mesos cluster manager for efficient resource isolation and sharing across distributed services
+--•Marathon for cluster management of long running containerized services
+--•Kubernetes for managing, organizing, and scheduling containers
+•Terraform deployment to multiple cloud providers
+•Docker container runtime
+•Traefik for proxying external traffic
+--•mesos-consul populating Consul service discovery with Mesos tasks
+--•Mantl API easily install supported Mesos frameworks on Mantl
+--•Mantl UI a beautiful administrative interface to Mantl
+
+Addons
+•ELK Stack for log collection and analysis ?Logstash for log forwarding
+
+•GlusterFS for container volume storage
+•Docker Swarm for clustering Docker daemons between networked hosts
+•etcd, distributed key-value store for Calico
+•Calico, a new kind of virtual network
+•collectd for metrics collection
+•Chronos a distributed task scheduler
+•Kong for managing APIs
+
+
+•Multiple applications/sites at different domains sharing same ip address+port ?Multiple Kestrel applications
+?Route using domain with reverse proxy e.g. IIS/ngnix
+?(Can use WebListerner on Windows; which does this natively via http.sys)
+
+•Multiple virtual directory applications on same path (e.g. /blog, /shop, /admin, /media) ?Multiple Kestrel applications
+?Route using path with reverse proxy e.g. IIS/ngnix
+?(Can use WebListerner on Windows; which does this natively via http.sys)
+
+•Single application with exclusive ip+port use but open to the internet ?At this time, use Kestrel behind established publicly hardened reverse proxy e.g. IIS/ngnix
+?Configure reverse proxy with limits ?e.g. max headers, max upload, timeouts etc
+?Generally they come with sensible defaults.
+
+•Single application with exclusive ip+port use but not open to the internet ?Can use Kestrel directly
+
+
+https://insidethecpu.com/2015/07/17/microservices-in-c-part-1-building-and-testing/
+http://highscalability.com/amazon-architecture
+
+https://api.travis-ci.org/repos/<owner>/<repository>/cc.xml
+
+https://tech.winton.com/2016/12/configuring-net-core-applications-using-consul/
+http://cecilphillip.com/using-consul-for-health-checks-with-asp-net-core/
+https://tech.winton.com/2016/12/configuring-net-core-applications-using-consul/
+
+https://github.com/damienbod/AspNetCoreFileUploadFileTable
+
+https://www.dotnetcatch.com/2016/12/30/intro-to-distributed-config-with-consul-on-asp-net-core/
+
+http://docs.identityserver.io/en/release/quickstarts/1_client_credentials.html
+http://docs.identityserver.io/en/release/quickstarts/8_entity_framework.html#refentityframeworkquickstart
+http://docs.identityserver.io/en/release/quickstarts/8_entity_framework.html#refentityframeworkquickstart
+
+https://www.codeproject.com/Articles/1112848/Creating-Web-API-in-ASP-NET-Core
+https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/sending-html-form-data-part-2
+
+https://github.com/hashicorp/consul-template/blob/master/.travis.yml
+https://gist.github.com/gabetax/09f8e7b1f33099259718
+
+https://weblog.west-wind.com/posts/2016/Jun/29/First-Steps-Exploring-NET-Core-and-ASPNET-Core
+https://robdmoore.id.au/blog/2013/02/02/automated-testing-of-asp-net-web-api-and-mvc-applications/
+
+https://damienbod.com/2015/12/05/asp-net-5-mvc-6-file-upload-with-ms-sql-server-filetable/
+https://github.com/damienbod/AspNetCoreFileUploadFileTable
+
+https://blog.rsuter.com/nswag-tutorial-generate-an-angular-2-typescript-client-from-an-existing-asp-net-web-api-web-assembly/
+https://code.msdn.microsoft.com/Scaffolding-ASPNet-Core-MVC-1e9183fd
+https://www.codeproject.com/Articles/1081915/ASP-NET-Core-CRUD-Using-Scaffolding-And-Entity
+https://docs.microsoft.com/en-us/aspnet/core/client-side/index
+https://aspnetboilerplate.com/Pages/Documents
+
+https://www.codeproject.com/Articles/1203987/Creating-CRUD-API-in-ASP-NET-Core
+https://docs.microsoft.com/de-de/aspnet/core/mvc/models/file-uploads
+https://docs.microsoft.com/de-de/aspnet/core/mvc/models/file-uploads
+https://dotnetcoretutorials.com/2017/03/12/uploading-files-asp-net-core/
+https://www.codeproject.com/Articles/838274/Web-API-Thoughts-of-Data-Streaming
+
+https://www.nginx.com/blog/event-driven-data-management-microservices/
+
+notifications:
+  email:
+    recipients:
+      - one@example.com
+      - other@example.com
+    on_success: never # default: change
+    on_failure: always # default: always
+  webhooks:
+    urls:
+      - http://hooks.mydomain.com/travisci
+      - http://hooks.mydomain.com/events
+    on_success: change # default: always
+    on_failure: always # default: always
+    on_start: change   # default: never
+    on_cancel: always # default: always
+    on_error: always # default: always
+
+
+consul keygen
+consul agent -ui
+
+// run consule in dev mode
+consul agent -dev -ui
+// consul -> localhost:8300
+// DNS -> localhost:8600
+//UI at http://localhost:8500
+// show current members
+consul members
+// using HTTP API
+curl localhost:8500/v1/catalog/nodes
+
+consul agent -dev -ui -config-dir=./etc/consul.d
+curl http://localhost:8500/v1/catalog/service/web
+
+
+go:
+  - 1.9
+
+env:
+  - GOMAXPROCS=4
+
+branches:
+  only:
+    - master
+
+env:
+  - CONSUL_VERSION=1.0.0
+
+before_install:
+  - curl -sLo consul.zip https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip
+  - unzip consul.zip
+  - mkdir -p ~/bin
+  - mv consul ~/bin
+  - export PATH="~/bin:$PATH"
+
+script: make test
+
+
+
+dotnet msbuild /p:TargetFramework=netcoreapp2.0 /pp
+
+.UseContentRoot("c:\\mywebsite") //Defaults to the folder where the app assembly resides
+.UseSetting(WebHostDefaults.DetailedErrorsKey, "true")
+.UseEnvironment("Development")
+.PreferHostingUrls(false)
+.UseShutdownTimeout(TimeSpan.FromSeconds(10))
+.UseWebRoot("public") //Sets the relative path to the app's static assets.
+
+    // Set up configuration sources.
+   var builder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+ 
+   if (env.IsDevelopment())
+   {
+     // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
+     builder.AddUserSecrets();
+   }
+   builder.AddEnvironmentVariables();
+   Configuration = builder.Build();
+
+ASPNET_ENV = 3 conventions Development, Staging, and Production
+
+
+ASPNETCORE_ENVIRONMENT
+
+env.IsDevelopment()
+•IsStaging()
+•IsProduction()
+
+
+VS 2017
+SQL Server Express + FILESTREAM zugriffsrechte
+SQL Server Managment Studio
+Postgres + pgAdmin
+node.js external install
+VS: node path unter externe tools eintragen und nach open schieben
+
+enable-migrations
+add-migration InitialCreate
+
+Individual
+MultiOrg
+
+curl -F "image=@test.pdf" /v2/pet/1/uploadImage
+
+https://github.com/thangchung/awesome-dotnet-core
+https://twitter.com/filip_woj
+Matt Hamilton
+Ben Foster https://github.com/benfoster
+https://www.cloudscribe.com/docs/cloudscribe-core
+http://localhost:25356/siteadmin admin@admin.com admin
+https://ae-dir.com/demo.html
+http://www.zytrax.com/books/ldap/ch4/win2k.html
+https://github.com/openiddict/openiddict-core
+https://github.com/jusbuc2k/Justin.AspNetCore.LdapAuthentication
+https://github.com/dsbenghe/Novell.Directory.Ldap.NETStandard
+https://support.symantec.com/en_US/article.HOWTO84950.html
+SAML 2.0 service providers
+LDAP
+https://social.technet.microsoft.com/wiki/contents/articles/36959.asp-net-core-mvc-authentication-and-claim-based-authorisation-with-asp-net-identity-core.aspx#Downloads
+https://www.aspnetzero.com/Documents/Development-Guide-Core
+http://johnatten.com/2014/08/10/asp-net-identity-2-0-implementing-group-based-permissions-management
+https://damienbod.com/2016/11/18/extending-identity-in-identityserver4-to-manage-users-in-asp-net-core/
+https://www.identityserver.com/documentation/admin-ui/
+http://redui.codeplex.com/
+http://demos.shieldui.com/aspnetcore
+https://js.devexpress.com/Demos/WidgetsGallery/Demo/DataGrid/WebAPIService/NetCore/Light/
+https://github.com/cecilphillip/aspnet-servicediscovery-patterns
+http://dotnetify.net/index/GridView
+https://github.com/ALMMa/datatables.aspnet
+
+https://github.com/mrellipse/toucan
+https://github.com/dncuug/scaffolder
+https://github.com/asadsahi/AspNetCoreSpa
+https://channel9.msdn.com/Blogs/Seth-Juarez/Building-Single-Page-Applications-with-ASPNET-Core
+
+https://github.com/webprofusion/certify
+
+https://www.codeproject.com/Articles/1056853/Lightning-Fast-Access-Control-Lists-in-Csharp
+
+sagger + autorest
+https://github.com/RSuter/NSwag/wiki/NSwagStudio
+https://github.com/RSuter/NSwag
+
+Integrated Security=SSPI;
+Trusted_Connection=True;
+
+"ConnectionString": "Data Source=.\\SQLEXPRESS;Initial Catalog=Microsoft.eShopOnContainers.Services.IdentityDb;Integrated Security=SSPI;MultipleActiveResultSets=True",
+
+  "ConnectionStrings": {
+    "Default": "Server=localhost\\SQLEXPRESS;Database=MyABPDb;Integrated Security=SSPI;"
+  }
+
+dotnet run -- --lynicon initialize-database
+dotnet run -- --lynicon initialize-admin --password p4ssw0rd
+
+SQL Management Studio
+(LocalDb)\MSSQLLocalDB
+
+Migration starten:
+Paketmanager Konsole
+> Update-Database
+or
+dotnet ef database update 
+
+Add-Migration "Added_Persons_Table"
+
+github search
+core stars:>=1 pushed:>=2017-01-01 fork:true in:name,description,readme size:>=30000 is:public forks:>=1 sort:updated-desc 
+
+Connectionstring
+"DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=Equinox;Trusted_Connection=True;MultipleActiveResultSets=true"
+
+https://github.com/openiddict/openiddict-core
+https://github.com/pwdless/pwdless
+https://github.com/IdentityServer
+https://github.com/Robynhu/AspNetCore.Identity.PostgreSQL
+https://www.codeproject.com/Articles/1204149/Versioning-ASP-NET-Core-Web-API
+https://github.com/aspnet/JavaScriptServices
+https://identityserver4.readthedocs.io
+https://www.scottbrady91.com/Identity-Server/Getting-Started-with-IdentityServer-4#User-Interface
+https://docs.microsoft.com/en-us/aspnet/core/client-side/spa-services
+https://www.youtube.com/watch?v=7FtxD1aqboc
+https://github.com/ElectronNET/Electron.NET
+https://github.com/xunit/xunit
+https://github.com/HtmlTags/htmltags
+https://github.com/RestCode/WebApiProxy
+
+Super UI
+https://aspnetboilerplate.com/Pages/Documents/Zero/Startup-Template-Angular
+https://github.com/gurayyarar/AdminBSBMaterialDesign
+https://youtu.be/RQ4Hsj_EXE0
+https://aspnetzero.com/Documents/Developing-Step-By-Step-Core
+
+https://docs.microsoft.com/en-us/dotnet/standard/portability-analyzer
+https://marketplace.visualstudio.com/items?itemName=ConnieYau.NETPortabilityAnalyzer
+
+http://localhost:53986/swagger/ui/index
+
+Infragistics 
+Telerik
+DevExpress
+ComponentOne
+
+dotnet new --install Microsoft.AspNetCore.SpaTemplates::*
+
+Or, if you want to create an Aurelia, Knockout, or Vue application, you should run 
+dotnet new --install Microsoft.AspNetCore.SpaTemplates::* first. This will add aurelia, knockout, and vue templates to dotnet new.
+
+swagger/Swashbuckle/NSwag project,NSwagStudio 
+NSwag best bet! https://www.youtube.com/watch?v=lF9ZZ8p2Ciw
+swaschbuckle swagger https://www.youtube.com/watch?v=qlEZE1K5BI4
+Autorest https://github.com/Azure/autorest
+breeze.js kein .net core momentan
+jaydata
+https://pouchdb.com/
+https://github.com/jdanyow/aurelia-breeze
+Breeze: Knockout, Angular, Backbone
+JayData: Knockout (with dynamic queries), Angular (tutorial on the way), Handlebars, Sencha (read-only), KendoUI (comes in few days).
+
+dotnet new
+dotnet restore
+npm install
+export ASPNETCORE_ENVIRONMENT=Development
+set ASPNETCORE_ENVIRONMENT=Development
+dotnet build
+dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+REM dotnet ef migrations add userID_Status
+dotnet ef database update
+dotnet run
+dotnet watch run
+dotnet publish -c Release
+
+https://docs.microsoft.com/en-us/aspnet/core
+
+
+https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/less/bootstrap.less
+
+
+Automigration vs Seeding
+Plugin, Service Architecture + migrating/seeding add-ons
+
+Install-Package Microsoft.EntityFrameworkCore.SqlServer
+Install-Package Microsoft.EntityFrameworkCore.Tools
+Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design
+
+Add-Migration InitialCreate
+Update-Database
+
+Technologies implemented:
+•ASP.NET Core 2.0 (with .NET Core)
+•ASP.NET MVC Core
+•ASP.NET WebApi Core
+•ASP.NET Identity Core
+•Entity Framework Core 2.0
+•.NET Core Native DI
+•AutoMapper
+•FluentValidator
+•MediatR
+•Swagger UI
+
+Architecture:
+•Full architecture with responsibility separation concerns, SOLID and Clean Code
+•Domain Driven Design (Layers and Domain Model Pattern)
+•Domain Events
+•Domain Notification
+•CQRS (Imediate Consistency)
+•Event Sourcing
+•Unit of Work
+•Repository and Generic Repository
+
+
+DDD Layers
+
+<Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
+  <Exec Command="bower install" />
+</Target>
+
+Install-Package Microsoft.AspNetCore.All
+
+Global.asax - ASP.NET project not ASP.NET Core
+Web.config -> appsettings.json
+
+global.json -> explicitly set sdk version
+
+
+webservice reties with exponential backoff and circuits breakers for microservice/ cloud 
+min of sync http use async massagin & events
+
+https://github.com/SteeltoeOSS
+
+5105 id x
+5107 mon o
+3330 nix
+5102 order x v o
+5110 marketing x v o
+3278 nix
+5101 catalog x v o
+5103 basket x v o
+5109 location o
+5108 payment v
+5104 callback spa
+5100 mvc
+5106 none
+- Web: http://localhost:5100
+- Catalog service: http://localhost:5101
+- Orders service: http://localhost:5102
+- Basket service: http://localhost:5103
+- Identity service: http://localhost:5105
+- Orders data (SQL Server): Server=tcp:localhost,5432;Database=Microsoft.eShopOnContainers.Services.OrderingDb;User Id=sa;Password=Pass@word;
+- Catalog data (SQL Server): Server=tcp:localhost,5434;Database=CatalogDB;User Id=sa;Password=Pass@word
+- Identity data (SQL Server): Server=localhost,5433;Database=aspnet-Microsoft.eShopOnContainers;User Id=sa;Password=Pass@word
+- Basket data (Redis): listening in localhost:6379
+
+npm WARN deprecated @types/protractor@4.0.0: This is a stub types definition for Protractor (https://github.com/angular/protractor). Protractor provides its own type definitions, so you don't need @types/protractor installed!
+npm WARN @angular/compiler-cli@5.0.1 requires a peer of typescript@>=2.4.2 <2.5 but none is installed. You must install peer dependencies yourself.
+npm WARN @ng-bootstrap/ng-bootstrap@1.0.0-beta.5 requires a peer of @angular/core@^4.0.3 but none is installed. You must install peer dependencies yourself.
+npm WARN @ng-bootstrap/ng-bootstrap@1.0.0-beta.5 requires a peer of @angular/common@^4.0.3 but none is installed. You must install peer dependencies yourself.
+npm WARN @ng-bootstrap/ng-bootstrap@1.0.0-beta.5 requires a peer of @angular/forms@^4.0.3 but none is installed. You must install peer dependencies yourself.
+npm WARN tsickle@0.24.1 requires a peer of typescript@2.4.2 but none is installed. You must install peer dependencies yourself.
+
+
+rabbitmq-plugins enable rabbitmq_management
+http://localhost:15672/ 
+
+amqp://guest:guest@localhost:5672/basketvhost
+
+VS 2017
+VS build tools
+latest npm/node.js 6.x
+asp.net core tools
+typescript
+openssl
+msys2
+letsencrypt/certificate
+etcd/consule
+redis
+mongo
+rabbitmq
+sql server 2017
+sql management studio 2017
+
+dotnet aspnet-codegenerator --project . controller -name HelloController -m Author -dc WebAPIDataContext
+
+npm cache clear --force
+Process.Start("CMD.exe", "/K yarn run start");
+Process.Start("cmd", "/C start http://localhost:3000");
+AspxCommerce
+git remote add upstream https://github.com/VirtoCommerce/vc-platform.git
+nuget restore C:\vc-platform\VirtoCommerce.Platform.Web\VirtoCommerce.Platform.sln
+
+DTO/Entity classes/POCO
+DAL inherits from ^^
+
+Microsoft.VisualStudio.Web.CodeGeneration.Tools
+Microsoft.VisualStudio.Web.CodeGenerators.Mvc
+
+controler
+data
+models
+views
+
+using System.ComponentModel.DataAnnotations;
+    public class SomeModel
+    {
+        [Key]
+        public string Id { get; set; }
+        public bool ShowId => !string.IsNullOrEmpty(Id);
+    }
+
+rabbitmqctl add_vhost basketvhost
+rabbitmqctl set_permissions -p basketvhost guest ".*" ".*" ".*"
+
+C:\Program Files\RabbitMQ Server\rabbitmq_server-3.6.14\sbin> .\rabbitmq-server.bat
+
+C:\Program Files\RabbitMQ Server\rabbitmq_server-3.6.14\sbin>rabbitmqctl set_permissions -p /basketvhost guest ".*" ".*" ".*"
+Setting permissions for user "guest" in vhost "/basketvhost"
+Error: no_such_vhost: /basketvhost
+
+C:\Program Files\RabbitMQ Server\rabbitmq_server-3.6.14\sbin>rabbitmqctl add_vhost basketvhost
+Creating vhost "basketvhost"
+
+C:\Program Files\RabbitMQ Server\rabbitmq_server-3.6.14\sbin>rabbitmqctl set_permissions -p /basketvhost guest ".*" ".*" ".*"
+Setting permissions for user "guest" in vhost "/basketvhost"
+Error: no_such_vhost: /basketvhost
+
+C:\Program Files\RabbitMQ Server\rabbitmq_server-3.6.14\sbin>rabbitmqctl set_permissions -p basketvhost guest ".*" ".*" ".*"
+Setting permissions for user "guest" in vhost "basketvhost"
+
+C:\Program Files\RabbitMQ Server\rabbitmq_server-3.6.14\sbin>rabbitmqctl add_vhost catalogvhost
+Creating vhost "catalogvhost"
+
+C:\Program Files\RabbitMQ Server\rabbitmq_server-3.6.14\sbin>rabbitmqctl set_permissions -p catalogvhost guest ".*" ".*" ".*"
+Setting permissions for user "guest" in vhost "catalogvhost"
+
+C:\Program Files\RabbitMQ Server\rabbitmq_server-3.6.14\sbin>rabbitmqctl add_vhost locationsvhost
+Creating vhost "locationsvhost"
+
+C:\Program Files\RabbitMQ Server\rabbitmq_server-3.6.14\sbin>rabbitmqctl set_permissions -p locationsvhost guest ".*" ".*" ".*"
+Setting permissions for user "guest" in vhost "locationsvhost"
+
+C:\Program Files\RabbitMQ Server\rabbitmq_server-3.6.14\sbin>rabbitmqctl add_vhost marketingvhost
+Creating vhost "marketingvhost"
+
+C:\Program Files\RabbitMQ Server\rabbitmq_server-3.6.14\sbin>rabbitmqctl set_permissions -p marketingvhost guest ".*" ".*" ".*"
+Setting permissions for user "guest" in vhost "marketingvhost"
+
+C:\Program Files\RabbitMQ Server\rabbitmq_server-3.6.14\sbin>rabbitmqctl add_vhost orderingvhost
+Creating vhost "orderingvhost"
+
+C:\Program Files\RabbitMQ Server\rabbitmq_server-3.6.14\sbin>rabbitmqctl set_permissions -p orderingvhost guest ".*" ".*" ".*"
+Setting permissions for user "guest" in vhost "orderingvhost"
+
+C:\Program Files\RabbitMQ Server\rabbitmq_server-3.6.14\sbin>rabbitmqctl add_vhost paymentvhost
+Creating vhost "paymentvhost"
+
+C:\Program Files\RabbitMQ Server\rabbitmq_server-3.6.14\sbin>rabbitmqctl set_permissions -p paymentvhost guest ".*" ".*" ".*"
+Setting permissions for user "guest" in vhost "paymentvhost"
+
+C:\Program Files\RabbitMQ Server\rabbitmq_server-3.6.14\sbin>
+
+
+Microsoft.EntityFrameworkCore.Tools
+Microsoft.EntityFrameworkCore.Tools.DotNet
+Microsoft.Extensions.SecretManager.Tools
+Microsoft.VisualStudio.Web.CodeGeneration.Tools
+
+ASP.NET Core MVC 1.0 (the framework formally known as ASP.NET 5 MVC 6)
+It is not a successor to ASP.NET Web API 2.2 or MVC 5, the web frameworks built for .NET Framework 4.6
+A lot of these libraries (e.g,. NHibernate) are not yet compatible ASP.NET Core.
+•Katana: Microsoft’s implementation of OWIN
+HttpContext.Current: This will be null. HttpContext is IIS based and will not be set when self-hosting with OWIN.
+Weiters steht mit Nancy eine Alternative zu ASP.NET WebAPI bereit.
+
+request.AlwaysMultipartFormData = true;
+
+nuget locals all -clear
+
+https://ehikioya.com/uploading-files-rest-endpoint-csharp/
+
+os:  
+  - linux
+  - osx
+osx_image: xcode7.1  
+node_js:
+  - "6"
+  - "7"
+  - "8"
+cache:
+  yarn: true
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+services:
+  - redis-server
+  - mongodb
+  - postgresql
+  - rabbitmq
+  - memcached
+cache:
+  directories:
+    - $HOME/.npm 
+	
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <RuntimeIdentifiers>osx-x64;android;ubuntu-x64;tizen;debian-x64;linux-x64;win10-x64;win-x64</RuntimeIdentifiers>
+  </PropertyGroup>
+
+
+dotnet build --runtime win10-x64	
+  
+dotnet test --list-tests
+dotnet msbuild /m test.build
+
+dotnet msbuild YourProject.build /t:TestAll
+
+
+addons: 
+   chrome: stable 
+
+cache:
+  directories:
+     - ./node_modules
+
+	 yarn bower webpack coffee-script cordova grunt-cli gulp-cli typescript tsd jspm less node-sass
+
+cd $(MSBuildProjectDirectory)
+
+<Target Name="TestAll">
+    <ItemGroup>
+        <TestProjects Include="$(MSBuildThisFileDirectory)test\**\*.csproj" Exclude="$(MSBuildThisFileDirectory)test\TestCommon\**\*.csproj" />
+    </ItemGroup>
+    <MSBuild Projects="@(TestProjects)" Targets="vstest" Properties="VSTestNoBuild=true" ContinueOnError="ErrorAndContinue"/>
+</Target>
+
+
+
+
+<Target Name="VSTest" Condition="'$(IsTestProject)' == 'true'">
+
+
+
+
+
+npm install npm@latest
+npm init -y
+npm install webpack --save-dev
+npm install --save-dev typescript ts-loader
+npm install --save-dev knockout @types/knockout
+tsconfig.json
+{
+  "compilerOptions": {
+    "outDir": "./wwwroot/build/",
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "compileOnSave": true
+  },
+  "exclude": [
+    "node_modules",
+    "wwwroot"
+  ]
+}
+
+scripts/myviewmodel.ts
+import * as ko from "knockout"
+
+class MyViewModel {
+    firstname: KnockoutObservable<string>;
+    lastname: KnockoutObservable<string>;
+
+    constructor(firstname: string, lastname: string) {
+        this.firstname = ko.observable(firstname);
+        this.lastname = ko.observable(lastname);
+    }
+}
+
+ko.applyBindings(new MyViewModel("Jakob", "Christensen"));
+
+
+webpack.config.js 
+var path = require('path');
+
+module.exports = {
+    entry: {
+        site: [
+            './wwwroot/js/site.js', 
+            './scripts/myviewmodel.ts']
+    },
+    output: {
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'wwwroot/dist/')
+    },
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                loader: 'ts-loader',
+                exclude: /node_modules/,
+            },
+        ]
+    },
+    resolve: {
+        extensions: [".tsx", ".ts", ".js"]
+    }
+};
+
+Then remove the line containing “compileOnSave” from tsconfig.json.
+
+package.json - for task runner (not recommanded use prebuild instead)
+"scripts": {
+    "build": "webpack"
+  },
+"-vs-binding":{"BeforeBuild":["build"]}
+
+prebuild:
+npm run build
+
+your project name].csproj
+<PropertyGroup>
+    <!-- ... -->
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+</PropertyGroup>
+
+Also, you might want to remove bower.json and bundleconfig.json if present, as package.json and webpack.config.js replace them. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

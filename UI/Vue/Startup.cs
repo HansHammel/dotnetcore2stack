@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Vue
+
+namespace RefArc.UI.Vue
 {
     public class Startup
     {

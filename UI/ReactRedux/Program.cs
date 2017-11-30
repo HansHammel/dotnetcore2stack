@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace ReactRedux
+namespace RefArc.UI.ReactRedux
 {
     public class Program
     {

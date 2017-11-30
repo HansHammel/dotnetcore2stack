@@ -108,7 +108,7 @@ namespace FileUpload2.Controllers
         public IActionResult Files()
         {
             var model = new FilesViewModel();
-            foreach (var item in this.fileProvider.GetDirectoryContents(""))
+            foreach (var item in fileProvider.GetDirectoryContents(""))
             {
                 model.Files.Add(
                     new FileDetails { Name = item.Name, Path = item.PhysicalPath });
@@ -124,7 +124,7 @@ namespace FileUpload2.Controllers
             if (filename == null)
             {
                 var model = new FilesViewModel();
-                foreach (var item in this.fileProvider.GetDirectoryContents(""))
+                foreach (var item in fileProvider.GetDirectoryContents(""))
                 {
                     model.Files.Add(
                         new FileDetails { Name = item.Name, Path = item.PhysicalPath });

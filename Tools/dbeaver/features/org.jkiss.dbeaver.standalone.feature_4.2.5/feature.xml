@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+        id="org.jkiss.dbeaver.standalone.feature"
+        label="%featureName"
+        version="4.2.5"
+        provider-name="%providerName"
+        plugin="org.jkiss.dbeaver.core.application">
+
+    <description>
+        %description
+    </description>
+
+    <copyright>
+        %copyright
+    </copyright>
+
+    <license url="%licenseURL">
+        %license
+    </license>
+
+    <url>
+        <update label="DBeaver Universal Database Manager" url="https://dbeaver.jkiss.org/"/>
+    </url>
+
+    <includes id="org.jkiss.dbeaver.rcp.feature" version="2.1.43"/>
+    <includes id="org.jkiss.dbeaver.core.feature" version="4.2.5"/>
+    <includes id="org.jkiss.dbeaver.ext.generic.feature" version="2.1.55"/>
+    <includes id="org.jkiss.dbeaver.ext.mysql.feature" version="2.1.54"/>
+    <includes id="org.jkiss.dbeaver.ext.oracle.feature" version="2.1.54"/>
+    <includes id="org.jkiss.dbeaver.ext.wmi.feature" version="2.0.71"/>
+    <includes id="org.jkiss.dbeaver.ext.db2.feature" version="2.1.54"/>
+    <includes id="org.jkiss.dbeaver.ext.exasol.feature" version="1.0.27"/>
+
+    <!-- P2 for RCP -->
+    <includes id="org.eclipse.equinox.p2.rcp.feature" version="1.3.1.v20170928-1405"/>
+
+    <requires>
+        <import plugin="org.eclipse.core.runtime"/>
+        <import plugin="org.eclipse.core.resources"/>
+        <import plugin="org.eclipse.core.expressions"/>
+        <import plugin="org.eclipse.ui"/>
+        <import plugin="org.eclipse.ui.workbench"/>
+        <import plugin="org.eclipse.ui.workbench.texteditor"/>
+        <import plugin="org.eclipse.swt"/>
+        <import plugin="org.eclipse.jface"/>
+        <import plugin="org.eclipse.jface.text"/>
+        <import plugin="org.eclipse.ui.views"/>
+        <import plugin="org.eclipse.gef"/>
+        <import plugin="org.apache.commons.logging"/>
+        <import plugin="com.jcraft.jsch"/>
+        <import plugin="org.objectweb.asm"/>
+    </requires>
+
+    <plugin id="org.eclipse.ui.ide.application" download-size="98" install-size="182" version="1.2.0.v20170512-1452" unpack="false"/>
+
+    <!-- EGit and other requirements -->
+    <import plugin="org.eclipse.jsch.core"/>
+    <import plugin="org.eclipse.jsch.ui"/>
+    <import plugin="org.eclipse.core.variables"/>
+    <import plugin="org.eclipse.ui.cheatsheets"/>
+
+    <!-- Include org.eclipse.ui.themes because it was added only in 4.4 -->
+    <plugin id="org.eclipse.ui.themes" download-size="47" install-size="135" version="1.2.1.v20170809-1435"/>
+
+    <!-- Custom stuff -->
+    <plugin id="org.apache.commons.cli" download-size="51" install-size="107" version="1.3.1" unpack="false"/>
+
+    <plugin id="org.jkiss.dbeaver.core.application" download-size="143" install-size="740" version="4.2.5" unpack="false"/>
+    <plugin id="org.jkiss.dbeaver.ext.sample.database" download-size="410" install-size="1112" version="1.0.6" unpack="false"/>
+
+
+</feature>

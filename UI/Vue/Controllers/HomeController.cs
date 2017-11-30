@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Vue.Controllers
+namespace RefArc.UI.Vue.Controllers
 {
     public class HomeController : Controller
     {

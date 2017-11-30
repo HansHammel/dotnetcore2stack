@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ReactRedux.Controllers
+namespace RefArc.UI.ReactRedux.Controllers
 {
     public class HomeController : Controller
     {

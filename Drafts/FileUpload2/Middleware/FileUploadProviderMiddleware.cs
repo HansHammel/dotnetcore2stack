@@ -25,7 +25,7 @@ namespace FileUpload2.Middleware
         {
             var output = new StringBuilder("");
 
-            IDirectoryContents dir = this.fileProvider.GetDirectoryContents("");
+            IDirectoryContents dir = fileProvider.GetDirectoryContents("");
             foreach (IFileInfo item in dir)
             {
                 output.AppendLine(item.Name);

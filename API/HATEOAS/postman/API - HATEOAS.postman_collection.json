@@ -1,0 +1,338 @@
+{
+	"variables": [],
+	"info": {
+		"name": "API - HATEOAS",
+		"_postman_id": "0fb6d686-4c94-0ba4-da5f-b9368d4b4745",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:23991/api/token?Username=test&Password=test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var body = JSON.parse(responseBody);\r",
+							"postman.setGlobalVariable(\"AccessToken\", body.access_token);\r",
+							"postman.setGlobalVariable(\"RefreshToken\", body.refresh_token);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "http://localhost:23991/api/token?Username=test&Password=test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "23991",
+					"path": [
+						"api",
+						"token"
+					],
+					"query": [
+						{
+							"key": "Username",
+							"value": "test",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "Password",
+							"value": "test",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.fiver.movie.input+json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/vnd.fiver.hateoas+json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"id\":21,\n    \"title\": \"S\",\n    \"releaseYear\": 2015,\n    \"summary\": \"A cryptic message from Bond's past sends him on a trail to uncover a sinister organization. While M battles political forces to keep the secret service alive, Bond peels back the layers of deceit to reveal the terrible truth behind SPECTRE.\",\n    \"crap\":\"some\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:23991/api/token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var body = JSON.parse(responseBody);\r",
+							"postman.setGlobalVariable(\"AccessToken\", body.access_token);\r",
+							"postman.setGlobalVariable(\"RefreshToken\", body.refresh_token);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:23991/api/token",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/vnd.fiver.hateoas+json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"username\":\"test\",\n\t\"password\":\"test\"\n}\n"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:23991/movies",
+			"request": {
+				"url": "http://localhost:23991/movies",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.fiver.hateoas+json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{AccessToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:23991/movies?PageNumber=2&PageSize=5",
+			"request": {
+				"url": {
+					"raw": "http://localhost:23991/movies?PageNumber=2&PageSize=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "23991",
+					"path": [
+						"movies"
+					],
+					"query": [
+						{
+							"key": "PageNumber",
+							"value": "2",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "PageSize",
+							"value": "5",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.fiver.hateoas+json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{AccessToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:23991/movies/22",
+			"request": {
+				"url": "http://localhost:23991/movies/21",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.fiver.hateoas+json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{AccessToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:23991/movies",
+			"request": {
+				"url": "http://localhost:23991/movies",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.fiver.movie.input+json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/vnd.fiver.hateoas+json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{AccessToken}}",
+						"description": ""
+					},
+					{
+						"key": "",
+						"value": "",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":21,\n    \"title\": \"Spectre\",\n    \"releaseYear\": 2015,\n    \"summary\": \"A cryptic message from Bond's past sends him on a trail to uncover a sinister organization. While M battles political forces to keep the secret service alive, Bond peels back the layers of deceit to reveal the terrible truth behind SPECTRE.\",\n    \"crap\":\"some\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:23991/movies/21",
+			"request": {
+				"url": "http://localhost:23991/movies/21",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{AccessToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 21,\n    \"title\": \"Spectre-PUT\",\n    \"releaseYear\": 2015,\n    \"summary\": \"A cryptic message from Bond's past sends him on a trail to uncover a sinister organization. While M battles political forces to keep the secret service alive, Bond peels back the layers of deceit to reveal the terrible truth behind SPECTRE.\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:23991/movies/21",
+			"request": {
+				"url": "http://localhost:23991/movies/21",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.fiver.hateoas+json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{AccessToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:23991/movies/21",
+			"request": {
+				"url": "http://localhost:23991/movies/21",
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json-patch+json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/vnd.fiver.hateoas+json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{AccessToken}}",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\n\t\"op\": \"add\",\n\t\"path\": \"/title\",\n\t\"value\": \"Spectre-Patched\"\n}]"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:23991/movies/22 insert bearer",
+			"request": {
+				"url": "http://localhost:23991/movies/20",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.fiver.hateoas+json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{AccessToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

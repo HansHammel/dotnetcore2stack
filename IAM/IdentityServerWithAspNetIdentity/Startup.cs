@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +8,8 @@ using Microsoft.Extensions.Logging;
 using IdentityServerWithAspNetIdentity.Data;
 using IdentityServerWithAspNetIdentity.Models;
 using IdentityServerWithAspNetIdentity.Services;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Identity;
 
 namespace IdentityServerWithAspNetIdentity
 {
@@ -50,7 +52,8 @@ namespace IdentityServerWithAspNetIdentity
             services.AddTransient<ISmsSender, AuthMessageSender>();
 
             services.AddIdentityServer()
-                .AddTemporarySigningCredential()
+                .AddDeveloperSigningCredential()
+                //.AddTemporarySigningCredential()
                 .AddInMemoryPersistedGrants()
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
@@ -82,7 +85,7 @@ namespace IdentityServerWithAspNetIdentity
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
             app.UseGoogleAuthentication(new GoogleOptions
             {
-                AuthenticationScheme = "Google",
+                // AuthenticationScheme = "Google",
                 SignInScheme = "Identity.External", // this is the name of the cookie middleware registered by UseIdentity()
                 ClientId = "998042782978-s07498t8i8jas7npj4crve1skpromf37.apps.googleusercontent.com",
                 ClientSecret = "HsnwJri_53zn7VcO1Fm7THBb",

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+        id="org.jkiss.dbeaver.core.feature"
+        label="%featureName"
+        version="4.2.5"
+        provider-name="%providerName"
+        plugin="org.jkiss.dbeaver.core">
+
+    <description>
+        %description
+    </description>
+
+    <copyright>
+        %copyright
+    </copyright>
+
+    <license url="%licenseURL">
+        %license
+    </license>
+
+    <requires>
+        <import plugin="org.eclipse.core.runtime"/>
+        <import plugin="org.eclipse.core.resources"/>
+        <import plugin="org.eclipse.core.expressions"/>
+        <import plugin="org.eclipse.ui"/>
+        <import plugin="org.eclipse.ui.workbench"/>
+        <import plugin="org.eclipse.ui.workbench.texteditor"/>
+        <import plugin="org.eclipse.swt"/>
+        <import plugin="org.eclipse.jface"/>
+        <import plugin="org.eclipse.jface.text"/>
+        <import plugin="org.eclipse.ui.views"/>
+        <import plugin="org.eclipse.search"/>
+        <import plugin="org.eclipse.draw2d"/>
+        <import plugin="org.eclipse.gef"/>
+    </requires>
+
+    <!-- 3rd party -->
+    <plugin id="com.github.jsqlparser" download-size="377" install-size="896" version="1.1.0" unpack="false"/>
+    <plugin id="org.apache.commons.jexl" download-size="261" install-size="564" version="2.1.1" unpack="false"/>
+    <plugin id="net.sf.opencsv" download-size="19" install-size="37" version="2.3.0" unpack="false"/>
+
+    <!-- DBeaver -->
+    <plugin id="org.jkiss.dbeaver.model" download-size="1079" install-size="2218" version="1.0.58" unpack="false"/>
+    <plugin id="org.jkiss.dbeaver.runtime.ide.core" download-size="6" install-size="8" version="4.2.3" unpack="false"/>
+    <plugin id="org.jkiss.dbeaver.core" download-size="3876" install-size="8195" version="4.2.5" unpack="false"/>
+    <plugin id="org.jkiss.dbeaver.ui" download-size="4" install-size="5" version="4.2.3" unpack="false"/>
+    <plugin id="org.jkiss.dbeaver.ext.erd" download-size="261" install-size="531" version="2.0.71" unpack="false"/>
+    <plugin id="org.jkiss.dbeaver.ext.import_config" download-size="45" install-size="80" version="2.1.32" unpack="false"/>
+    <plugin id="org.jkiss.dbeaver.ext.ui.locks" download-size="39" install-size="80" version="1.0.14" unpack="false"/>
+    <plugin id="org.jkiss.utils" download-size="75" install-size="146" version="2.1.52" unpack="false"/>
+
+</feature>

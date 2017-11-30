@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+        id="org.jkiss.dbeaver.ext.generic.feature"
+        label="%featureName"
+        version="2.1.55"
+        provider-name="%providerName"
+        plugin="org.jkiss.dbeaver.ext.generic">
+
+    <description>
+        %description
+    </description>
+
+    <copyright>
+        %copyright
+    </copyright>
+
+    <license url="%licenseURL">
+        %license
+    </license>
+
+    <requires>
+        <import feature="org.jkiss.dbeaver.core.feature" version="1.0.0"/>
+    </requires>
+
+    <plugin id="org.jkiss.dbeaver.ext.derby" download-size="5" install-size="9" version="1.1.54" unpack="false"/>
+    <plugin id="org.jkiss.dbeaver.ext.firebird" download-size="26" install-size="56" version="1.0.70" unpack="false"/>
+    <plugin id="org.jkiss.dbeaver.ext.generic" download-size="156" install-size="419" version="2.3.55" unpack="false"/>
+    <plugin id="org.jkiss.dbeaver.ext.h2" download-size="4" install-size="7" version="1.0.24" unpack="false"/>
+    <plugin id="org.jkiss.dbeaver.ext.hsqldb" download-size="7" install-size="16" version="1.0.16" unpack="false"/>
+    <plugin id="org.jkiss.dbeaver.ext.informix" download-size="7" install-size="14" version="1.0.60" unpack="false"/>
+    <plugin id="org.jkiss.dbeaver.ext.mssql" download-size="20" install-size="31" version="1.0.63" unpack="false"/>
+    <plugin id="org.jkiss.dbeaver.ext.netezza" download-size="4" install-size="7" version="1.0.34" unpack="false"/>
+    <plugin id="org.jkiss.dbeaver.ext.phoenix" download-size="7" install-size="11" version="1.0.38" unpack="false"/>
+    <plugin id="org.jkiss.dbeaver.ext.postgresql" download-size="406" install-size="975" version="2.1.42" unpack="false"/>
+    <plugin id="org.jkiss.dbeaver.ext.sqlite" download-size="21" install-size="41" version="1.0.18" unpack="false"/>
+    <plugin id="org.jkiss.dbeaver.ext.teradata" download-size="5" install-size="8" version="1.0.37" unpack="false"/>
+    <plugin id="org.jkiss.dbeaver.ext.vertica" download-size="4" install-size="6" version="1.0.62" unpack="false"/>
+</feature>

@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace Tests.FunctionalTests
+namespace RefArc.Tests.FunctionalTests
 {
     public class UnitTest1
     {
